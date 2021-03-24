@@ -3,4 +3,9 @@
 
 <!--    Splash screen    -->
     <string name="splash_screen_madeby">Made by Lightiz</string>
+
+<!--    Home    -->
+    <string name="home_page_nav_bar_devices_button_txt">Devices</string>
+    <string name="home_page_nav_bar_add_button_txt">Add</string>
+<!--    <string name="home_page_"-->
 </resources>

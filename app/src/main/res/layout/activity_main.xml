@@ -6,13 +6,81 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+<!--    Background-->
+    <ImageView
+        android:id="@+id/home_page_nav_bar_background"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/home_page_nav_bar_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--    Logo-->
+    <ImageView
+        android:id="@+id/home_page_nav_bar_logo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:src="@mipmap/ic_logo_round"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+
+<!--    Device-->
+    <Button
+        android:id="@+id/home_page_nav_bar_devices_btn"
+        android:layout_width="110dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/transparent"
+        android:text="@string/home_page_nav_bar_devices_button_txt"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
+        app:layout_constraintStart_toEndOf="@+id/home_page_nav_bar_logo"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="24dp"
+        android:background="@drawable/home_page_nav_bar_devices_btn_background"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
+        app:layout_constraintStart_toEndOf="@+id/home_page_nav_bar_logo"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+
+<!--    Add-->
+    <Button
+        android:id="@+id/home_page_nav_bar_add_btn"
+        android:layout_width="110dp"
+        android:layout_height="48dp"
+        android:background="@color/transparent"
+        android:text="@string/home_page_nav_bar_add_button_txt"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
+        app:layout_constraintEnd_toStartOf="@+id/home_page_nav_bar_account"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+
+    <ImageView
+        android:id="@+id/home_page_nav_bar_add_background"
+        android:layout_width="110dp"
+        android:layout_height="48dp"
+        android:background="@drawable/home_page_nav_bar_devices_btn_background"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
+        app:layout_constraintEnd_toEndOf="@+id/home_page_nav_bar_add_btn"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+
+    <ImageView
+        android:id="@+id/home_page_nav_bar_account"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_account"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
+        app:layout_constraintEnd_toEndOf="@+id/home_page_nav_bar_background"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
