@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="95dp">
+
+    <TextView
+        android:id="@+id/item_reminder_title"
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_title_sample"
+        android:textColor="@color/black"
+        android:textFontWeight="400"
+        android:textSize="30sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="12.5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_reminder_date"
+        android:layout_width="80dp"
+        android:layout_height="37.5dp"
+        android:text="@string/item_reminder_text_hour_sample_24h"
+        android:textAlignment="center"
+        android:textColor="#CC4A4A4A"
+        android:textSize="16.5sp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/item_reminder_devicesList"
+        app:layout_constraintStart_toStartOf="@+id/item_reminder_title"
+        app:layout_constraintTop_toBottomOf="@+id/item_reminder_title" />
+
+    <LinearLayout
+        android:id="@+id/item_reminder_devicesList"
+        android:layout_width="220dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/item_reminder_title"
+        app:layout_constraintStart_toStartOf="@+id/item_reminder_title"
+        app:layout_constraintTop_toBottomOf="@+id/item_reminder_title"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="2.5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/logo_windows" />
+        <ImageView
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="2.5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/logo_android" />
+        <ImageView
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="2.5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/logo_apple" />
+        <ImageView
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="2.5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/logo_linux" />
+        <ImageView
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="2.5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/logo_macos" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toTopOf="@+id/item_reminder_enabled_switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_reminder_title"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/item_reminder_edit_image_desc" />
+
+    <Switch
+        android:id="@+id/item_reminder_enabled_switch"
+        android:layout_width="58dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:trackTint="@color/main_dark_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_reminder_title"
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:thumbTint="@color/main_dark_blue" />
+</androidx.constraintlayout.widget.ConstraintLayout>

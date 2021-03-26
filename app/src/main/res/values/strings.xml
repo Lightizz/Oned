@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">Oned</string>
 
-<!--    Splash screen    -->
+    <!--    Splash screen    -->
     <string name="splash_screen_madeby">Made by Lightiz</string>
 
-<!--    Home    -->
+    <!--    Home    -->
     <string name="home_page_nav_bar_devices_button_txt">Devices</string>
     <string name="home_page_nav_bar_add_button_txt">Add</string>
-<!--    <string name="home_page_"-->
+    <!--    <string name="home_page_"-->
+
+    <string name="account_email_sample">example@email.com</string>
+    
+    <string name="reminder_title_sample">Reminder title</string>
+    <string name="item_reminder_edit_image_desc">Edit reminder</string>
+    <string name="item_reminder_text_hour_sample_24h">04/15/21 13h56</string>
+    <string name="item_reminder_text_hour_sample_12h">04/15/21 1:56PM</string>
 </resources>

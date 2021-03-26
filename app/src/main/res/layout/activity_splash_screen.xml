@@ -6,23 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".SplashScreenActivity">
 
-    <ProgressBar
-        android:id="@+id/splash_screen_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
+    <ImageView
+        android:id="@+id/splash_screen_logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@mipmap/ic_logo"
-        app:layout_constraintBottom_toTopOf="@+id/splash_screen_loading"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="100dp"/>
 
     <ImageView
         android:id="@+id/splash_screen_madeby_logo"

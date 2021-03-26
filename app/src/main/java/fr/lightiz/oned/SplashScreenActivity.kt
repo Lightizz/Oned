@@ -1,11 +1,16 @@
 package fr.lightiz.oned
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Debug
 import android.os.Handler
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import org.w3c.dom.Text
 import java.util.*
 
 class SplashScreenActivity : AppCompatActivity() {
