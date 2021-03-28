@@ -1,4 +1,4 @@
-package fr.lightiz.oned
+package fr.lightiz.oned.home
 
 import android.graphics.Rect
 import android.view.View

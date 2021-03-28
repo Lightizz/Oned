@@ -11,7 +11,7 @@
         android:id="@+id/item_reminder_title"
         android:layout_width="313dp"
         android:layout_height="wrap_content"
-        android:text="@string/reminder_title_sample"
+        android:text="@string/item_reminder_title_sample"
         android:textColor="@color/black"
         android:textFontWeight="400"
         android:textSize="30sp"

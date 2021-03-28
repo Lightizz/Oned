@@ -1,18 +1,59 @@
 <resources>
     <string name="app_name">Oned</string>
 
-    <!--    Splash screen    -->
-    <string name="splash_screen_madeby">Made by Lightiz</string>
+    <!--    Splash screen   -->
+    <string name="splash_screen_madeBy">Made by Lightiz</string>
 
     <!--    Home    -->
     <string name="home_page_nav_bar_devices_button_txt">Devices</string>
     <string name="home_page_nav_bar_add_button_txt">Add</string>
-    <!--    <string name="home_page_"-->
 
-    <string name="account_email_sample">example@email.com</string>
-    
-    <string name="reminder_title_sample">Reminder title</string>
+    <!--    Account template    -->
+    <string name="model_account_email_sample">example@email.com</string>
+
+    <!--    Item reminder   -->
+    <string name="item_reminder_title_sample">Reminder title</string>
     <string name="item_reminder_edit_image_desc">Edit reminder</string>
     <string name="item_reminder_text_hour_sample_24h">04/15/21 13h56</string>
     <string name="item_reminder_text_hour_sample_12h">04/15/21 1:56PM</string>
+
+    <!--    Account login page  -->
+    <string name="account_login_title">Login to your Oned account</string>
+    <string name="account_login_e_mail_address_placeholder">E-mail address</string>
+    <string name="account_login_password_placeholder">Password</string>
+    <string name="account_login_login_button">Login</string>
+    <string name="account_login_register">You don\'t have an account ? Then let\'s register</string>
+
+    <!--    Account register page  -->
+    <string name="account_register_title">Register to your Oned account</string>
+    <string name="account_register_name_placeholder">Name</string>
+    <string name="account_register_e_mail_address_placeholder">E-mail address</string>
+    <string name="account_register_age_placeholder">Age</string>
+    <string name="account_register_password_placeholder">Password</string>
+    <string name="account_register_register_button">Register</string>
+    <string name="account_register_login">You already have an account ? Then welcome back!</string>
+
+    <!--    Account info page   -->
+    <string name="account_info_title">Your account</string>
+    <string name="account_info_go_back_desc">GoBack</string>
+    <string name="account_info_log_out_desc">Log out</string>
+    <string name="account_info_edit_desc">Edit</string>
+
+    <string name="account_info_tag_name">Name: </string>
+    <string name="account_info_tag_email">E-mail: </string>
+    <string name="account_info_tag_age">Age: </string>
+    <string name="account_info_tag_password">Password: </string>
+    <string name="account_info_tag_hour_format">Hour format: </string>
+
+    <string name="account_info_value_name">Name</string>
+    <string name="account_info_value_password">Password</string>
+    <string name="account_info_value_age">30 ans</string>
+    <string name="account_info_value_hour_format">24h</string>
+    <string name="account_login_forgot_password">Forgot my password!</string>
+
+<!--    Account reset password page     -->
+    <string name="account_reset_password_title">Reset your Oned account\'s password</string>
+    <string name="account_reset_confirm_button">Confirm</string>
+    <string name="account_reset_note">Please note than a mail will be sent, in consequence, go check your mails after confirming.</string>
+
 </resources>

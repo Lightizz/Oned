@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountInfo">
+
+    <ImageView
+        android:id="@+id/account_info_goBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/account_info_go_back_desc"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/account_info_title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="17.5dp"
+        android:fontFamily="@font/odin_rounded_bold"
+        android:text="@string/account_info_title"
+        android:textAlignment="center"
+        android:textColor="#E6000000"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_info_goBack"
+        app:layout_constraintStart_toEndOf="@+id/account_info_goBack"
+        app:layout_constraintTop_toTopOf="@+id/account_info_goBack" />
+
+    <ImageView
+        android:id="@+id/account_info_disconnect_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/account_info_log_out_desc"
+        android:src="@drawable/ic_disconnect"
+        app:layout_constraintBottom_toBottomOf="@+id/account_info_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/account_info_title" />
+
+    <ImageView
+        android:id="@+id/account_info_edit"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/account_info_edit_desc"
+        android:src="@drawable/ic_edit"
+        android:layout_marginEnd="22.5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_info_title"
+        app:layout_constraintEnd_toStartOf="@+id/account_info_disconnect_img"
+        app:layout_constraintTop_toTopOf="@+id/account_info_title" />
+
+    <View
+        android:id="@+id/account_info_view_repair"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="120dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/account_info_tag_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/account_info_tag_name"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/account_info_view_repair"
+        app:layout_constraintTop_toBottomOf="@+id/account_info_title" />
+
+    <TextView
+        android:id="@+id/account_info_value_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:text="@string/account_info_value_name"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_info_tag_name"
+        app:layout_constraintStart_toEndOf="@+id/account_info_tag_name" />
+
+    <TextView
+        android:id="@+id/account_info_tag_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/account_info_tag_age"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/account_info_view_repair"
+        app:layout_constraintTop_toBottomOf="@+id/account_info_title" />
+
+    <TextView
+        android:id="@+id/account_info_value_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:text="@string/account_info_value_age"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_info_tag_age"
+        app:layout_constraintStart_toEndOf="@+id/account_info_tag_age" />
+
+    <TextView
+        android:id="@+id/account_info_tag_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:text="@string/account_info_tag_email"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/account_info_view_repair"
+        app:layout_constraintTop_toBottomOf="@+id/account_info_title" />
+
+    <TextView
+        android:id="@+id/account_info_value_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:text="@string/model_account_email_sample"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_info_tag_email"
+        app:layout_constraintStart_toEndOf="@+id/account_info_tag_email" />
+
+    <TextView
+        android:id="@+id/account_info_tag_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="220dp"
+        android:text="@string/account_info_tag_password"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/account_info_view_repair"
+        app:layout_constraintTop_toBottomOf="@+id/account_info_title" />
+
+    <TextView
+        android:id="@+id/account_info_value_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:text="@string/account_info_value_password"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_info_tag_password"
+        app:layout_constraintStart_toEndOf="@+id/account_info_tag_password" />
+
+    <TextView
+        android:id="@+id/account_info_tag_hour_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="280dp"
+        android:text="@string/account_info_tag_hour_format"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/account_info_view_repair"
+        app:layout_constraintTop_toBottomOf="@+id/account_info_title" />
+
+    <TextView
+        android:id="@+id/account_info_value_hour_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:text="@string/account_info_value_hour_format"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_info_tag_hour_format"
+        app:layout_constraintStart_toEndOf="@+id/account_info_tag_hour_format" />
+</androidx.constraintlayout.widget.ConstraintLayout>
