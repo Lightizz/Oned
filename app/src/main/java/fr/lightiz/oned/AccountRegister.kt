@@ -5,20 +5,24 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.Explode
 import android.util.Patterns
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
-import fr.lightiz.oned.templates.Account
-import fr.lightiz.oned.templates.Device
-import fr.lightiz.oned.templates.Reminder
+import fr.lightiz.oned.data.DatabaseManager
+import fr.lightiz.oned.data.DatabaseManager.Singleton.reminderList
+import fr.lightiz.oned.home_page.ReminderItemDecoration
+import fr.lightiz.oned.home_page.RemindersAdapter
+import fr.lightiz.oned.models.Account
+import fr.lightiz.oned.models.Device
+import fr.lightiz.oned.models.Reminder
 import fr.lightiz.oned.tools.RandomDeviceKeyGenerator
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,6 +37,7 @@ class AccountRegister : AppCompatActivity() {
     private lateinit var register_age_input: EditText
     private lateinit var register_password_input: EditText
     private lateinit var register_progressbar: ProgressBar
+    private lateinit var thermsAndConditionsCheckBox: CheckBox
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SimpleDateFormat")
@@ -45,6 +50,11 @@ class AccountRegister : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
 
+        with(window) {
+            requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+            exitTransition = Explode()
+        }
+
         setContentView(R.layout.activity_account_register)
 
         auth = FirebaseAuth.getInstance()
@@ -56,6 +66,7 @@ class AccountRegister : AppCompatActivity() {
         register_age_input = findViewById(R.id.account_register_age_input)
         register_password_input = findViewById(R.id.account_register_password_input)
         register_progressbar = findViewById(R.id.account_register_progressbar)
+        thermsAndConditionsCheckBox = findViewById(R.id.account_register_accept_therms_and_rules)
 
         register_login.setOnClickListener {
             startActivity(Intent(this, AccountLogin::class.java))
@@ -64,10 +75,10 @@ class AccountRegister : AppCompatActivity() {
         }
 
         register_register_button.setOnClickListener {
-            var name:String = register_name_input.text.toString().trim()
-            var email:String = register_email_input.text.toString().trim()
-            var age:String = register_age_input.text.toString().trim()
-            var password:String = register_password_input.text.toString().trim()
+            val name:String = register_name_input.text.toString().trim()
+            val email:String = register_email_input.text.toString().trim()
+            val age:String = register_age_input.text.toString().trim()
+            val password:String = register_password_input.text.toString().trim()
 
             if(name.isEmpty()){
                 register_name_input.error = "This field is required!"
@@ -101,29 +112,53 @@ class AccountRegister : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if(!thermsAndConditionsCheckBox.isChecked){
+                thermsAndConditionsCheckBox.error = "This field is required!"
+                thermsAndConditionsCheckBox.requestFocus()
+                return@setOnClickListener
+            }
+
+            // TODO: faire le système de checkbox "therms of conditions" obligatoire et si checkbox exemple reminder est coché ou pas générer un reminder ou pas selon le choix
             register_progressbar.visibility = View.VISIBLE
 
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                 if(it.isComplete) {
-                    var calendar: Calendar = Calendar.getInstance()
-                    var dateFormat = SimpleDateFormat("MM-dd-yyyy HH:mm")
-                    var date:String = dateFormat.format(calendar.time)
-                    var currentDate = Date()
-                    var modifiedDate = Date(currentDate.year, currentDate.month, currentDate.date + 1, currentDate.hours, currentDate.minutes)
+                    val exempleReminderCheckBox = findViewById<CheckBox>(R.id.account_register_reminder_example)
 
-                    var localDevice = Device(RandomDeviceKeyGenerator.generateKey(), /*MainActivity().getDeviceName().toString()*/"Android", 0)
-                    var devices = arrayListOf<Device>()
+                    val currentDate = Date()
+                    val modifiedDate = Date(currentDate.year, currentDate.month, currentDate.date + 1, currentDate.hours, currentDate.minutes)
+
+                    val localDevice = Device(RandomDeviceKeyGenerator.generateKey(), "Android phone", 0)
+                    val devices = arrayListOf<Device>()
                     devices.add(localDevice)
-                    var initReminder = Reminder("Init", modifiedDate, devices, true)
-                    var reminders = arrayListOf<Reminder>()
+
+                    val initReminder = Reminder("Example", modifiedDate, devices, true)
+                    val reminders = arrayListOf<Reminder>()
                     reminders.add(initReminder)
-                    var account = Account(name, email, password, age, true)
+
+                    val account = Account(name, email, password, age, true)
                     FirebaseDatabase.getInstance().getReference("accounts").child(FirebaseAuth.getInstance().currentUser.uid).setValue(account)
                     FirebaseDatabase.getInstance().getReference("devices").child(FirebaseAuth.getInstance().currentUser.uid).setValue(devices)
-                    FirebaseDatabase.getInstance().getReference("reminders").child(FirebaseAuth.getInstance().currentUser.uid).setValue(reminders)
+                    if(exempleReminderCheckBox.isChecked){
+                        FirebaseDatabase.getInstance().getReference("reminders").child(FirebaseAuth.getInstance().currentUser.uid).setValue(reminders)
+                    }
                     Toast.makeText(this, "You successfully registered your self! Thanks!", Toast.LENGTH_SHORT).show()
                     register_progressbar.visibility = View.INVISIBLE
-                    startActivity(Intent(this, MainActivity::class.java))
+
+                    val loggedUser: FirebaseUser? = auth.currentUser
+
+                    val dbManager = DatabaseManager()
+                    if (loggedUser != null) {
+                        dbManager.updateData( {
+                        }, loggedUser, this)
+                    }
+
+                    finishAndRemoveTask()
+                    Toast.makeText(this, "You have to restart the app to initialize your riminders", Toast.LENGTH_LONG).show()
+
+                    return@addOnCompleteListener
+
+//                    startActivity(Intent(this, MainActivity::class.java))
                     FirebaseAuth.getInstance().currentUser?.sendEmailVerification()
                 }else {
                     Toast.makeText(this, "An error has occurred while creating your account, if it persist, please contact support", Toast.LENGTH_LONG).show()

@@ -1,4 +1,4 @@
-package fr.lightiz.oned.templates
+package fr.lightiz.oned.models
 
 class Device (
     val deviceKey:String = "000000000000000000000000000000000000000000001", // 35 Integer

@@ -27,7 +27,7 @@
         android:text="@string/item_reminder_text_hour_sample_24h"
         android:textAlignment="center"
         android:textColor="#CC4A4A4A"
-        android:textSize="16.5sp"
+        android:textSize="14dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/item_reminder_devicesList"

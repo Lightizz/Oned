@@ -51,9 +51,12 @@
     <string name="account_info_value_hour_format">24h</string>
     <string name="account_login_forgot_password">Forgot my password!</string>
 
-<!--    Account reset password page     -->
+    <!--    Account reset password page     -->
     <string name="account_reset_password_title">Reset your Oned account\'s password</string>
     <string name="account_reset_confirm_button">Confirm</string>
     <string name="account_reset_note">Please note than a mail will be sent, in consequence, go check your mails after confirming.</string>
+    <string name="home_page_empty_list_txt">You don\'t have any reminders ! Click \'Add\' to create one !</string>
+    <string name="account_register_accept_therms_and_rules">Accept therms of conditions and rules of the app</string>
+    <string name="account_register_reminder_example">Generate an example reminder</string>
 
 </resources>

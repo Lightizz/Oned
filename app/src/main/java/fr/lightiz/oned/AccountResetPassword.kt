@@ -2,6 +2,7 @@ package fr.lightiz.oned
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.Explode
 import android.util.Patterns
 import android.view.View
 import android.view.Window
@@ -27,6 +28,11 @@ class AccountResetPassword : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
+
+        with(window) {
+            requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+            exitTransition = Explode()
+        }
 
         setContentView(R.layout.activity_account_reset_password)
 

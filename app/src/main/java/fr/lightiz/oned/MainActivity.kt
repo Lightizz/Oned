@@ -2,23 +2,22 @@ package fr.lightiz.oned
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.Explode
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import fr.lightiz.oned.database.DatabaseManager
-import fr.lightiz.oned.database.DatabaseManager.Singleton.dbRefReminders
-import fr.lightiz.oned.home.ReminderItemDecoration
-import fr.lightiz.oned.home.RemindersAdapter
-import fr.lightiz.oned.templates.Reminder
+import fr.lightiz.oned.data.DatabaseManager
+import fr.lightiz.oned.data.DatabaseManager.Singleton.reminderList
+import fr.lightiz.oned.home_page.ReminderItemDecoration
+import fr.lightiz.oned.home_page.RemindersAdapter
 import java.util.*
 
 
@@ -33,48 +32,41 @@ class MainActivity : AppCompatActivity() {
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
+        )
+
+        with(window) {
+            requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+            exitTransition = Explode()
+        }
 
         setContentView(R.layout.activity_main)
 
         auth = FirebaseAuth.getInstance()
-        val loggedUser:FirebaseUser? = auth.currentUser
-        if(loggedUser == null) {
+        val loggedUser: FirebaseUser? = auth.currentUser
+        if (loggedUser == null) {
             Toast.makeText(this, "You are not logged in, you're going to be redirected.", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, AccountLogin::class.java))
             finish()
             return
         }
 
-        if(FirebaseDatabase.getInstance().getReference("reminders").child(loggedUser.uid).get() == null){
-            Toast.makeText(this@MainActivity, "A database error has occurred, please contact support.", Toast.LENGTH_LONG).show()
-            startActivity(Intent(this@MainActivity, AccountLogin::class.java))
-            finish()
-            return
-        }
-
-        val currentUserReminderList = arrayListOf<Reminder>()
-        dbRefReminders.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (currentUserReminderList.isEmpty()) {
-                    for (ds in snapshot.child(loggedUser.uid).children) {
-                        currentUserReminderList.add(ds.getValue(Reminder::class.java) as Reminder)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {}
-        })
-
-        if(currentUserReminderList.isEmpty()) {
-
-        }
-
         val dbManager = DatabaseManager()
-        dbManager.updateData{
+        dbManager.updateData( {
+            val emptyListText = findViewById<TextView>(R.id.home_page_empty_list_txt)
             val remindersRecyclerView = findViewById<RecyclerView>(R.id.home_page_reminders_rv)
-            remindersRecyclerView.adapter = RemindersAdapter(currentUserReminderList)
+            if(reminderList.isEmpty()){
+                emptyListText.visibility = View.VISIBLE
+                return@updateData
+            }
+            remindersRecyclerView.adapter = RemindersAdapter(reminderList)
             remindersRecyclerView.addItemDecoration(ReminderItemDecoration())
+        }, loggedUser, this)
+
+        val deviceButton: Button = findViewById(R.id.home_page_nav_bar_devices_btn)
+        deviceButton.setOnClickListener {
+            startActivity(Intent(this, AddDevice::class.java))
+            finish()
+            return@setOnClickListener
         }
 
         val accountImage = findViewById<ImageView>(R.id.home_page_nav_bar_account)
@@ -84,7 +76,9 @@ class MainActivity : AppCompatActivity() {
             return@setOnClickListener
         }
     }
+}
 
+    /*
     fun devicesLogoToIDConverter(id: Int): ImageView {
         when (id) {
             0 -> {
@@ -120,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+     */
 
 //        val logo = findViewById<ImageView>(R.id.splash_screen_logo)
 //        logo.setOnClickListener {  }

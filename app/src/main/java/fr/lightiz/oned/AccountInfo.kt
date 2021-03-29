@@ -2,6 +2,7 @@ package fr.lightiz.oned
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.Explode
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
@@ -11,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import fr.lightiz.oned.templates.Account
+import fr.lightiz.oned.models.Account
 
 
 class AccountInfo : AppCompatActivity() {
@@ -37,6 +38,11 @@ class AccountInfo : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
 
+        with(window) {
+            requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+            exitTransition = Explode()
+        }
+
         setContentView(R.layout.activity_account_info)
 
         disconnect = findViewById(R.id.account_info_disconnect_img)
@@ -61,6 +67,12 @@ class AccountInfo : AppCompatActivity() {
         }
 
         user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            Toast.makeText(this, "You are not logged in, you're going to be redirected.", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, AccountLogin::class.java))
+            finish()
+            return
+        }
         dbRef = FirebaseDatabase.getInstance().getReference("accounts")
         userID = user.uid
 
@@ -69,11 +81,11 @@ class AccountInfo : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val account = snapshot.getValue(Account::class.java)
                 if(account != null){
-                    var name_:String = account.name
-                    var age_:String = account.age
-                    var email_:String = account.email
-                    var password_:String = account.password
-                    var format_:Boolean = account.fullHourSystem
+                    val name_:String = account.name
+                    val age_:String = account.age
+                    val email_:String = account.email
+                    val password_:String = account.password
+                    val format_:Boolean = account.fullHourSystem
 
                     name.text = name_
                     age.text = age_
@@ -87,7 +99,6 @@ class AccountInfo : AppCompatActivity() {
 
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@AccountInfo, "An error has occured, try again or contact support", Toast.LENGTH_LONG).show()
             }

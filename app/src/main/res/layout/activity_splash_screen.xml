@@ -19,15 +19,13 @@
 
     <ImageView
         android:id="@+id/splash_screen_madeby_logo"
-        android:layout_width="65dp"
-        android:layout_height="68dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@mipmap/ic_lightiz"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="110dp"/>
 
     <TextView
         android:id="@+id/splash_screen_madeby_txt"

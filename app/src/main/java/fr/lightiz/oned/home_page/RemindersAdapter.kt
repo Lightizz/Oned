@@ -1,5 +1,6 @@
-package fr.lightiz.oned.home
+package fr.lightiz.oned.home_page
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.lightiz.oned.R
-import fr.lightiz.oned.templates.Reminder
+import fr.lightiz.oned.models.Reminder
 
 class RemindersAdapter(
     private val reminderList: List<Reminder>
@@ -17,6 +18,7 @@ class RemindersAdapter(
         val reminderTitle:TextView? = view.findViewById(R.id.item_reminder_title)
         val reminderDate:TextView? = view.findViewById(R.id.item_reminder_date)
         val deviceList = view.findViewById<LinearLayout>(R.id.item_reminder_devicesList)
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
         val reminderSwitch:Switch? = view.findViewById(R.id.item_reminder_enabled_switch)
     }
 
@@ -25,11 +27,12 @@ class RemindersAdapter(
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentReminder = reminderList[position]
         
         holder.reminderTitle?.text = currentReminder.title
-        holder.reminderDate?.text = currentReminder.reminderDate.toString() //TODO("Change to the correct format")
+        holder.reminderDate?.text = "" + currentReminder.reminderDate.date + "/" + (currentReminder.reminderDate.month + 1) + "/" + (currentReminder.reminderDate.year + 1900) + " - " + (currentReminder.reminderDate.hours + 1) + ":" + (currentReminder.reminderDate.minutes + 1)
         if(holder.reminderSwitch != null && currentReminder.isEnabled){
             holder.reminderSwitch.toggle()
         }

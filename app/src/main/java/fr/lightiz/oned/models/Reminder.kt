@@ -1,4 +1,4 @@
-package fr.lightiz.oned.templates
+package fr.lightiz.oned.models
 
 import java.util.*
 import kotlin.collections.ArrayList

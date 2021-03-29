@@ -2,6 +2,7 @@ package fr.lightiz.oned
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.Explode
 import android.util.Patterns
 import android.view.View
 import android.view.Window
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import fr.lightiz.oned.data.DatabaseManager
 
 class AccountLogin : AppCompatActivity() {
     private lateinit var account_login_register: TextView
@@ -21,7 +23,7 @@ class AccountLogin : AppCompatActivity() {
     private lateinit var account_login_progressbar: ProgressBar
     private lateinit var account_login_forgot_password: TextView
 
-    lateinit var auth:FirebaseAuth
+    private lateinit var auth:FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,11 @@ class AccountLogin : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
+
+        with(window) {
+            requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+            exitTransition = Explode()
+        }
 
         setContentView(R.layout.activity_account_login)
 
@@ -61,6 +68,8 @@ class AccountLogin : AppCompatActivity() {
     }
 
     private fun loginUser(){
+        auth = FirebaseAuth.getInstance()
+
         val email:String = account_login_email_input.text.toString().trim()
         val password: String = account_login_password_input.text.toString().trim()
 
@@ -88,11 +97,16 @@ class AccountLogin : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
             if(it.isComplete){
-                var user:FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                val user:FirebaseUser? = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
                     if(user.isEmailVerified){
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
+                        val dbManager = DatabaseManager()
+                        dbManager.updateData( {
+                        }, user, this)
+
+                        finishAndRemoveTask()
+                        Toast.makeText(this, "You have to restart the app to initialize your riminders", Toast.LENGTH_LONG).show()
+
                         return@addOnCompleteListener
                     }else {
                         user.sendEmailVerification()
@@ -100,8 +114,9 @@ class AccountLogin : AppCompatActivity() {
                         return@addOnCompleteListener
                     }
                 }
+                account_login_progressbar.visibility = View.INVISIBLE
             }else {
-                Toast.makeText(this, "An error has occured while logging to your account, if it persist, please contact support", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "An error has occurred while logging to your account, if it persist, please contact support", Toast.LENGTH_LONG).show()
                 account_login_progressbar.visibility = View.INVISIBLE
             }
         }

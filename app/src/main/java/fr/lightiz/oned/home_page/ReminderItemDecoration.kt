@@ -1,4 +1,4 @@
-package fr.lightiz.oned.home
+package fr.lightiz.oned.home_page
 
 import android.graphics.Rect
 import android.view.View

@@ -106,6 +106,30 @@
         android:layout_marginTop="7dp"
         android:layout_marginEnd="7dp"/>
 
+    <CheckBox
+        android:id="@+id/account_register_reminder_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp"
+        android:checked="true"
+        android:text="@string/account_register_reminder_example"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_register_register_button" />
+
+    <CheckBox
+        android:id="@+id/account_register_accept_therms_and_rules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:checked="false"
+        android:text="@string/account_register_accept_therms_and_rules"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_register_register_button" />
+
     <ProgressBar
         android:id="@+id/account_register_progressbar"
         android:layout_width="75dp"

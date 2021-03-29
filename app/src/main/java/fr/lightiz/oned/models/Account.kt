@@ -1,4 +1,4 @@
-package fr.lightiz.oned.templates
+package fr.lightiz.oned.models
 
 class Account(
         var name:String = "",
