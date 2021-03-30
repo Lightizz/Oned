@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ class RemindersAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val reminderTitle:TextView? = view.findViewById(R.id.item_reminder_title)
         val reminderDate:TextView? = view.findViewById(R.id.item_reminder_date)
-        val deviceList = view.findViewById<LinearLayout>(R.id.item_reminder_devicesList)
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         val reminderSwitch:Switch? = view.findViewById(R.id.item_reminder_enabled_switch)
     }

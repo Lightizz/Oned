@@ -24,6 +24,10 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var loggedUser: FirebaseUser
+
+    private lateinit var emptyListText: TextView
+    private lateinit var remindersRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +46,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         auth = FirebaseAuth.getInstance()
-        val loggedUser: FirebaseUser? = auth.currentUser
+
+        remindersRecyclerView = findViewById(R.id.home_page_reminders_rv)
+        emptyListText = findViewById(R.id.home_page_empty_list_txt)
+
+        loggedUser = auth.currentUser
         if (loggedUser == null) {
             Toast.makeText(this, "You are not logged in, you're going to be redirected.", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, AccountLogin::class.java))
@@ -52,19 +60,13 @@ class MainActivity : AppCompatActivity() {
 
         val dbManager = DatabaseManager()
         dbManager.updateData( {
-            val emptyListText = findViewById<TextView>(R.id.home_page_empty_list_txt)
-            val remindersRecyclerView = findViewById<RecyclerView>(R.id.home_page_reminders_rv)
-            if(reminderList.isEmpty()){
-                emptyListText.visibility = View.VISIBLE
-                return@updateData
-            }
             remindersRecyclerView.adapter = RemindersAdapter(reminderList)
             remindersRecyclerView.addItemDecoration(ReminderItemDecoration())
-        }, loggedUser, this)
+        }, loggedUser, this, emptyListText)
 
         val deviceButton: Button = findViewById(R.id.home_page_nav_bar_devices_btn)
         deviceButton.setOnClickListener {
-            startActivity(Intent(this, AddDevice::class.java))
+            startActivity(Intent(this, Devices::class.java))
             finish()
             return@setOnClickListener
         }
@@ -76,45 +78,30 @@ class MainActivity : AppCompatActivity() {
             return@setOnClickListener
         }
     }
-}
 
-    /*
-    fun devicesLogoToIDConverter(id: Int): ImageView {
-        when (id) {
-            0 -> {
-                val i = ImageView(this)
-                i.setImageResource(R.drawable.logo_android)
-                return i
+    fun devicesLogoToIDConverter(imgDrawable: Int): Int {
+        when (imgDrawable) {
+            R.drawable.logo_android -> {
+                return 0
             }
-            1 -> {
-                val i = ImageView(this)
-                i.setImageResource(R.drawable.logo_windows)
-                return i
+            R.drawable.logo_windows -> {
+                return 1
             }
-            2 -> {
-                val i = ImageView(this)
-                i.setImageResource(R.drawable.logo_linux)
-                return i
+            R.drawable.logo_linux -> {
+                return 2
             }
-            3 -> {
-                val i = ImageView(this)
-                i.setImageResource(R.drawable.logo_macos)
-                return i
+            R.drawable.logo_macos -> {
+                return 3
             }
-            4 -> {
-                val i = ImageView(this)
-                i.setImageResource(R.drawable.logo_apple)
-                return i
+            R.drawable.logo_apple -> {
+                return 4
             }
             else -> {
-                val i = ImageView(this)
-                i.setImageResource(R.drawable.logo_android)
-                return i
+                return 0
             }
         }
     }
 }
-     */
 
 //        val logo = findViewById<ImageView>(R.id.splash_screen_logo)
 //        logo.setOnClickListener {  }

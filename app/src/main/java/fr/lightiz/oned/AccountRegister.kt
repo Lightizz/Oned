@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.transition.Explode
 import android.util.Patterns
 import android.view.View
@@ -38,6 +39,7 @@ class AccountRegister : AppCompatActivity() {
     private lateinit var register_password_input: EditText
     private lateinit var register_progressbar: ProgressBar
     private lateinit var thermsAndConditionsCheckBox: CheckBox
+    private lateinit var register_confirm_txt: TextView
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SimpleDateFormat")
@@ -67,6 +69,7 @@ class AccountRegister : AppCompatActivity() {
         register_password_input = findViewById(R.id.account_register_password_input)
         register_progressbar = findViewById(R.id.account_register_progressbar)
         thermsAndConditionsCheckBox = findViewById(R.id.account_register_accept_therms_and_rules)
+        register_confirm_txt = findViewById(R.id.account_register_confirm_txt)
 
         register_login.setOnClickListener {
             startActivity(Intent(this, AccountLogin::class.java))
@@ -118,7 +121,6 @@ class AccountRegister : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // TODO: faire le système de checkbox "therms of conditions" obligatoire et si checkbox exemple reminder est coché ou pas générer un reminder ou pas selon le choix
             register_progressbar.visibility = View.VISIBLE
 
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -142,24 +144,24 @@ class AccountRegister : AppCompatActivity() {
                     if(exempleReminderCheckBox.isChecked){
                         FirebaseDatabase.getInstance().getReference("reminders").child(FirebaseAuth.getInstance().currentUser.uid).setValue(reminders)
                     }
-                    Toast.makeText(this, "You successfully registered your self! Thanks!", Toast.LENGTH_SHORT).show()
                     register_progressbar.visibility = View.INVISIBLE
 
                     val loggedUser: FirebaseUser? = auth.currentUser
 
                     val dbManager = DatabaseManager()
                     if (loggedUser != null) {
-                        dbManager.updateData( {
-                        }, loggedUser, this)
+                        dbManager.updateData( {}, loggedUser, this, TextView(this))
                     }
 
-                    finishAndRemoveTask()
-                    Toast.makeText(this, "You have to restart the app to initialize your riminders", Toast.LENGTH_LONG).show()
-
-                    return@addOnCompleteListener
-
-//                    startActivity(Intent(this, MainActivity::class.java))
                     FirebaseAuth.getInstance().currentUser?.sendEmailVerification()
+
+                    register_confirm_txt.visibility = View.VISIBLE
+
+                    val handler = Handler()
+                    handler.postDelayed({ register_confirm_txt.visibility = View.INVISIBLE }, 2500)
+
+                    startActivity(Intent(this, MainActivity::class.java))
+                    return@addOnCompleteListener
                 }else {
                     Toast.makeText(this, "An error has occurred while creating your account, if it persist, please contact support", Toast.LENGTH_LONG).show()
                     register_progressbar.visibility = View.INVISIBLE

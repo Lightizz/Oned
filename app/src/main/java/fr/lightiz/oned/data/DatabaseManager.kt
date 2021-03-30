@@ -2,6 +2,8 @@ package fr.lightiz.oned.data
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -12,7 +14,9 @@ import fr.lightiz.oned.AccountLogin
 import fr.lightiz.oned.models.Account
 import fr.lightiz.oned.data.DatabaseManager.Singleton.accountList
 import fr.lightiz.oned.data.DatabaseManager.Singleton.dbRefAccounts
+import fr.lightiz.oned.data.DatabaseManager.Singleton.dbRefDevices
 import fr.lightiz.oned.data.DatabaseManager.Singleton.dbRefReminders
+import fr.lightiz.oned.data.DatabaseManager.Singleton.devicesList
 import fr.lightiz.oned.data.DatabaseManager.Singleton.reminderList
 import fr.lightiz.oned.models.Device
 import fr.lightiz.oned.models.Reminder
@@ -28,36 +32,52 @@ class DatabaseManager {
         var devicesList = arrayListOf<Device>()
     }
 
-    fun updateData(callback: () -> Unit, loggedUser: FirebaseUser, context: Context){
+    fun updateData(callback: () -> Unit, loggedUser: FirebaseUser, context: Context, emptyReminderListText: TextView) {
         dbRefAccounts.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 accountList.clear()
-                for(ds in snapshot.children){
+                for (ds in snapshot.children) {
                     val account = ds.getValue(Account::class.java)
 
-                    if(account != null){
+                    if (account != null) {
                         accountList.add(account)
-                    }else {
+                    } else {
                         continue
                     }
                 }
-                if(loggedUser == null || loggedUser.uid == null || !snapshot.hasChild(loggedUser.uid)){
+                if (loggedUser == null || loggedUser.uid == null || !snapshot.hasChild(loggedUser.uid)) {
                     Toast.makeText(context, "You are not logged in, you're going to be redirected.", Toast.LENGTH_SHORT).show()
                     context.startActivity(Intent(context, AccountLogin::class.java))
                 }
+                callback()
             }
-            override fun onCancelled(error: DatabaseError) {  }
+
+            override fun onCancelled(error: DatabaseError) {}
         })
         dbRefReminders.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (reminderList.isEmpty()) {
-                    for (ds in snapshot.child(loggedUser.uid).children) {
-                        reminderList.add(ds.getValue(Reminder::class.java) as Reminder)
-                    }
+                reminderList.clear()
+                for (ds in snapshot.child(loggedUser.uid).children) {
+                    reminderList.add(ds.getValue(Reminder::class.java) as Reminder)
+                }
+                callback()
+                if (reminderList.isEmpty() && emptyReminderListText != null) {
+                    emptyReminderListText.visibility = View.VISIBLE
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {}
         })
-        callback()
+        dbRefDevices.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                devicesList.clear()
+                for (ds in snapshot.child(loggedUser.uid).children) {
+                    devicesList.add(ds.getValue(Device::class.java) as Device)
+                }
+                callback()
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 }

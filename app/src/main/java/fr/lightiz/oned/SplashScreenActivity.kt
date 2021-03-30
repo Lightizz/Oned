@@ -57,7 +57,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val dbManager = DatabaseManager()
         dbManager.updateData( {
-        }, loggedUser, this)
+        }, loggedUser, this, TextView(this))
     }
 
     private fun goToMainPage(){

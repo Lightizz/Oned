@@ -16,39 +16,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    Logo-->
-    <ImageView
-        android:id="@+id/home_page_nav_bar_logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="5dp"
-        android:src="@mipmap/ic_logo_round"
-        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
-
-<!--    Device-->
+    <!--    Device-->
     <Button
         android:id="@+id/home_page_nav_bar_devices_btn"
         android:layout_width="110dp"
         android:layout_height="48dp"
-        android:layout_marginLeft="20dp"
         android:background="@color/transparent"
         android:text="@string/home_page_nav_bar_devices_button_txt"
         android:textColor="@color/black"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
-        app:layout_constraintStart_toEndOf="@+id/home_page_nav_bar_logo"
-        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+        android:textSize="17sp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_account"
+        app:layout_constraintEnd_toStartOf="@+id/home_page_nav_bar_account"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_account" />
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="110dp"
         android:layout_height="48dp"
-        android:layout_marginLeft="24dp"
         android:background="@drawable/home_page_nav_bar_devices_btn_background"
-        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
-        app:layout_constraintStart_toEndOf="@+id/home_page_nav_bar_logo"
-        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_devices_btn"
+        app:layout_constraintEnd_toEndOf="@+id/home_page_nav_bar_devices_btn"
+        app:layout_constraintStart_toStartOf="@+id/home_page_nav_bar_devices_btn"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_devices_btn" />
 
 <!--    Add-->
     <Button
@@ -58,26 +48,28 @@
         android:background="@color/transparent"
         android:text="@string/home_page_nav_bar_add_button_txt"
         android:textColor="@color/black"
-        android:textSize="17dp"
-        android:layout_marginRight="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
-        app:layout_constraintEnd_toStartOf="@+id/home_page_nav_bar_account"
-        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_devices_btn"
+        app:layout_constraintEnd_toStartOf="@+id/home_page_nav_bar_devices_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_devices_btn" />
 
     <ImageView
         android:id="@+id/home_page_nav_bar_add_background"
         android:layout_width="110dp"
         android:layout_height="48dp"
         android:background="@drawable/home_page_nav_bar_devices_btn_background"
-        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_add_btn"
         app:layout_constraintEnd_toEndOf="@+id/home_page_nav_bar_add_btn"
-        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_background" />
+        app:layout_constraintStart_toStartOf="@+id/home_page_nav_bar_add_btn"
+        app:layout_constraintTop_toTopOf="@+id/home_page_nav_bar_add_btn" />
 
+<!--    Account     -->
     <ImageView
         android:id="@+id/home_page_nav_bar_account"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/ic_account"
         app:layout_constraintBottom_toBottomOf="@+id/home_page_nav_bar_background"
         app:layout_constraintEnd_toEndOf="@+id/home_page_nav_bar_background"

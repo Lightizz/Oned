@@ -28,6 +28,7 @@ class AccountInfo : AppCompatActivity() {
     private lateinit var password: TextView
     private lateinit var format: TextView
     private lateinit var goBack: ImageView
+    private lateinit var edit: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,12 +53,17 @@ class AccountInfo : AppCompatActivity() {
         password = findViewById(R.id.account_info_value_password)
         format = findViewById(R.id.account_info_value_hour_format)
         goBack = findViewById(R.id.account_info_goBack)
+        edit = findViewById(R.id.account_info_edit)
 
         disconnect.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             startActivity(Intent(this, AccountLogin::class.java))
             finish()
             return@setOnClickListener
+        }
+
+        edit.setOnClickListener {
+            // TODO: 30/03/2021 Make a popup window with editable values on edit texts and apply button
         }
 
         goBack.setOnClickListener {
@@ -75,7 +81,6 @@ class AccountInfo : AppCompatActivity() {
         }
         dbRef = FirebaseDatabase.getInstance().getReference("accounts")
         userID = user.uid
-
 
         dbRef.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

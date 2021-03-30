@@ -2,6 +2,7 @@ package fr.lightiz.oned
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.transition.Explode
 import android.util.Patterns
 import android.view.View
@@ -22,6 +23,7 @@ class AccountLogin : AppCompatActivity() {
     private lateinit var account_login_password_input: TextView
     private lateinit var account_login_progressbar: ProgressBar
     private lateinit var account_login_forgot_password: TextView
+    private lateinit var account_login_confirm_txt: TextView
 
     private lateinit var auth:FirebaseAuth
 
@@ -47,6 +49,7 @@ class AccountLogin : AppCompatActivity() {
         account_login_password_input = findViewById(R.id.account_login_password_input)
         account_login_progressbar = findViewById(R.id.account_login_progressbar)
         account_login_forgot_password = findViewById(R.id.account_login_forgot_password)
+        account_login_confirm_txt = findViewById(R.id.account_login_confirm_txt)
 
         auth = FirebaseAuth.getInstance()
 
@@ -102,10 +105,15 @@ class AccountLogin : AppCompatActivity() {
                     if(user.isEmailVerified){
                         val dbManager = DatabaseManager()
                         dbManager.updateData( {
-                        }, user, this)
+                        }, user, this, TextView(this))
 
-                        finishAndRemoveTask()
-                        Toast.makeText(this, "You have to restart the app to initialize your riminders", Toast.LENGTH_LONG).show()
+                        account_login_confirm_txt.visibility = View.VISIBLE
+
+                        val handler = Handler()
+                        handler.postDelayed({ account_login_confirm_txt.visibility = View.INVISIBLE }, 2500)
+
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
 
                         return@addOnCompleteListener
                     }else {

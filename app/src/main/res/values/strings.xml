@@ -7,6 +7,7 @@
     <!--    Home    -->
     <string name="home_page_nav_bar_devices_button_txt">Devices</string>
     <string name="home_page_nav_bar_add_button_txt">Add</string>
+    <string name="home_page_empty_list_txt">You don\'t have any reminders ! Click \'Add\' to create one !</string>
 
     <!--    Account template    -->
     <string name="model_account_email_sample">example@email.com</string>
@@ -23,6 +24,7 @@
     <string name="account_login_password_placeholder">Password</string>
     <string name="account_login_login_button">Login</string>
     <string name="account_login_register">You don\'t have an account ? Then let\'s register</string>
+    <string name="account_login_forgot_password">Forgot my password!</string>
 
     <!--    Account register page  -->
     <string name="account_register_title">Register to your Oned account</string>
@@ -49,14 +51,29 @@
     <string name="account_info_value_password">Password</string>
     <string name="account_info_value_age">30 ans</string>
     <string name="account_info_value_hour_format">24h</string>
-    <string name="account_login_forgot_password">Forgot my password!</string>
 
     <!--    Account reset password page     -->
     <string name="account_reset_password_title">Reset your Oned account\'s password</string>
     <string name="account_reset_confirm_button">Confirm</string>
     <string name="account_reset_note">Please note than a mail will be sent, in consequence, go check your mails after confirming.</string>
-    <string name="home_page_empty_list_txt">You don\'t have any reminders ! Click \'Add\' to create one !</string>
+
+<!--    Account register-->
     <string name="account_register_accept_therms_and_rules">Accept therms of conditions and rules of the app</string>
     <string name="account_register_reminder_example">Generate an example reminder</string>
 
+<!--    Device list-->
+    <string name="device_list_title">Devices</string>
+    <string name="device_list_empty_list_txt">You don\'t have any devices ! Click \'+\' to add one !</string>
+    <string name="device_list_goBack">Go home page</string>
+
+<!--    Item device-->
+    <string name="item_devices_title">Phone title</string>
+    <string name="item_devices_os_desc">Os of the device</string>
+    <string name="item_devices_edit_desc">Edit</string>
+    <string name="item_devices_delete_desc">Delete</string>
+    <string name="item_device_key_placeholder">000000000000000000000000000000000000000000001</string>
+    
+    <string name="account_login_confirm_txt">Login succesful!</string>
+    <string name="account_register_confirm_txt">Register succesful!</string>
+    
 </resources>
