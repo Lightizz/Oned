@@ -1,6 +1,5 @@
 package fr.lightiz.oned
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.os.Debug

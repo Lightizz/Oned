@@ -2,7 +2,6 @@ package fr.lightiz.oned.devices_page
 
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +11,19 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import fr.lightiz.oned.AccountLogin
 import fr.lightiz.oned.Devices
 import fr.lightiz.oned.MainActivity
 import fr.lightiz.oned.R
-import fr.lightiz.oned.data.DatabaseManager
 import fr.lightiz.oned.data.DatabaseManager.Singleton.dbRefDevices
 import fr.lightiz.oned.models.Device
 
 class DevicesAdapter(
-    private val deviceList: List<Device>,
-    private val context: Context?
+        private val deviceList: List<Device>,
+        private val context: Context?
 ) : RecyclerView.Adapter<DevicesAdapter.DeviceViewHolder>() {
 
     class DeviceViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -59,7 +61,22 @@ class DevicesAdapter(
                 Toast.makeText(context, "You can't delete all the device!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            dbRefDevices.child(loggedUser.uid).child(position.toString()).removeValue()
+
+            dbRefDevices.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (loggedUser == null || loggedUser.uid == null || !snapshot.hasChild(loggedUser.uid)) {
+                        context?.startActivity(Intent(context, AccountLogin::class.java))
+                    }
+                    for (ds in snapshot.child(loggedUser.uid).children) {
+                        val device = ds.getValue(Device::class.java) as Device
+                        if(device.deviceKey == currentDevice.deviceKey) {
+                            dbRefDevices.child(loggedUser.uid).child(ds.key.toString()).removeValue()
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
 
             context?.startActivity(Intent(context, Devices::class.java))
         }

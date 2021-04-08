@@ -3,7 +3,6 @@ package fr.lightiz.oned
 import android.content.Intent
 import android.os.Bundle
 import android.transition.Explode
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
@@ -22,6 +21,8 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    val OS_TYPES_ARRAY = arrayOf("Android", "Windows10", "Linux", "MacOs", "Apple")
 
     private lateinit var auth: FirebaseAuth
     private lateinit var loggedUser: FirebaseUser
@@ -64,7 +65,14 @@ class MainActivity : AppCompatActivity() {
             remindersRecyclerView.addItemDecoration(ReminderItemDecoration())
         }, loggedUser, this, emptyListText)
 
-        val deviceButton: Button = findViewById(R.id.home_page_nav_bar_devices_btn)
+        val addReminderButton = findViewById<Button>(R.id.home_page_nav_bar_add_btn)
+        addReminderButton.setOnClickListener {
+            startActivity(Intent(this, AddReminder::class.java))
+            finish()
+            return@setOnClickListener
+        }
+
+        val deviceButton = findViewById<Button>(R.id.home_page_nav_bar_devices_btn)
         deviceButton.setOnClickListener {
             startActivity(Intent(this, Devices::class.java))
             finish()

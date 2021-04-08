@@ -13,19 +13,14 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import fr.lightiz.oned.data.DatabaseManager
-import fr.lightiz.oned.data.DatabaseManager.Singleton.reminderList
-import fr.lightiz.oned.home_page.ReminderItemDecoration
-import fr.lightiz.oned.home_page.RemindersAdapter
 import fr.lightiz.oned.models.Account
 import fr.lightiz.oned.models.Device
 import fr.lightiz.oned.models.Reminder
 import fr.lightiz.oned.tools.RandomDeviceKeyGenerator
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AccountRegister : AppCompatActivity() {
@@ -125,7 +120,7 @@ class AccountRegister : AppCompatActivity() {
 
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                 if(it.isComplete) {
-                    val exempleReminderCheckBox = findViewById<CheckBox>(R.id.account_register_reminder_example)
+                    val exampleReminderCheckBox = findViewById<CheckBox>(R.id.account_register_reminder_example)
 
                     val currentDate = Date()
                     val modifiedDate = Date(currentDate.year, currentDate.month, currentDate.date + 1, currentDate.hours, currentDate.minutes)
@@ -141,7 +136,7 @@ class AccountRegister : AppCompatActivity() {
                     val account = Account(name, email, password, age, true)
                     FirebaseDatabase.getInstance().getReference("accounts").child(FirebaseAuth.getInstance().currentUser.uid).setValue(account)
                     FirebaseDatabase.getInstance().getReference("devices").child(FirebaseAuth.getInstance().currentUser.uid).setValue(devices)
-                    if(exempleReminderCheckBox.isChecked){
+                    if(exampleReminderCheckBox.isChecked){
                         FirebaseDatabase.getInstance().getReference("reminders").child(FirebaseAuth.getInstance().currentUser.uid).setValue(reminders)
                     }
                     register_progressbar.visibility = View.INVISIBLE

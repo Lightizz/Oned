@@ -57,23 +57,33 @@
     <string name="account_reset_confirm_button">Confirm</string>
     <string name="account_reset_note">Please note than a mail will be sent, in consequence, go check your mails after confirming.</string>
 
-<!--    Account register-->
+    <!--    Account register-->
     <string name="account_register_accept_therms_and_rules">Accept therms of conditions and rules of the app</string>
     <string name="account_register_reminder_example">Generate an example reminder</string>
 
-<!--    Device list-->
+    <!--    Device list-->
     <string name="device_list_title">Devices</string>
     <string name="device_list_empty_list_txt">You don\'t have any devices ! Click \'+\' to add one !</string>
     <string name="device_list_goBack">Go home page</string>
 
-<!--    Item device-->
+    <!--    Item device-->
     <string name="item_devices_title">Phone title</string>
     <string name="item_devices_os_desc">Os of the device</string>
     <string name="item_devices_edit_desc">Edit</string>
     <string name="item_devices_delete_desc">Delete</string>
     <string name="item_device_key_placeholder">000000000000000000000000000000000000000000001</string>
-    
-    <string name="account_login_confirm_txt">Login succesful!</string>
-    <string name="account_register_confirm_txt">Register succesful!</string>
-    
+
+    <string name="account_login_confirm_txt">Login successful!</string>
+    <string name="account_register_confirm_txt">Register successful!</string>
+    <string name="add_device_title">New device</string>
+    <string name="add_device_name_input_hint">Device name</string>
+    <string name="add_device_confirm">Add</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="add_reminder_title">New reminder</string>
+    <string name="add_reminder_title_input_hint">Title</string>
+    <string name="add_reminder_confirm">Add</string>
+    <string name="add_reminder_devices_popup_button">Devices to notify ►</string>
+
 </resources>

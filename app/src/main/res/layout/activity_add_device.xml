@@ -6,4 +6,66 @@
     android:layout_height="match_parent"
     tools:context=".AddDevice">
 
+    <ImageView
+        android:id="@+id/add_device_goBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/add_device_title"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:fontFamily="@font/odin_rounded_bold"
+        android:text="@string/add_device_title"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:layout_marginStart="17.5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/add_device_goBack"
+        app:layout_constraintStart_toEndOf="@+id/add_device_goBack"
+        app:layout_constraintTop_toTopOf="@+id/add_device_goBack" />
+
+    <EditText
+        android:id="@+id/add_device_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_device_title"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="75dp"
+        android:autofillHints="@string/add_device_name_input_hint"
+        android:hint="@string/add_device_name_input_hint"
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/add_device_type_spinner"
+        android:layout_width="147.5dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="30dp"
+        android:drawSelectorOnTop="true"
+        app:layout_constraintStart_toStartOf="@+id/add_device_name_input"
+        app:layout_constraintTop_toBottomOf="@+id/add_device_name_input" />
+
+    <TextView
+        android:id="@+id/add_device_confirm"
+        android:layout_width="400dp"
+        android:layout_height="75dp"
+        android:background="@drawable/account_login_login_button_background"
+        android:paddingVertical="15dp"
+        android:text="@string/add_device_confirm"
+        android:layout_marginTop="25dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_device_type_spinner" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

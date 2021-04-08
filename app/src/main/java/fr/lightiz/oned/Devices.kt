@@ -1,6 +1,5 @@
 package fr.lightiz.oned
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,8 +17,6 @@ import fr.lightiz.oned.data.DatabaseManager
 import fr.lightiz.oned.data.DatabaseManager.Singleton.devicesList
 import fr.lightiz.oned.devices_page.DevicesAdapter
 import fr.lightiz.oned.devices_page.DevicesItemDecoration
-import fr.lightiz.oned.home_page.ReminderItemDecoration
-import fr.lightiz.oned.home_page.RemindersAdapter
 
 class Devices : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,10 +31,18 @@ class DatabaseManager {
         var devicesList = arrayListOf<Device>()
     }
 
-    fun updateData(callback: () -> Unit, loggedUser: FirebaseUser, context: Context, emptyReminderListText: TextView) {
+    fun updateData(
+        callback: () -> Unit,
+        loggedUser: FirebaseUser,
+        context: Context,
+        emptyReminderListText: TextView
+    ) {
         dbRefAccounts.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 accountList.clear()
+                if (loggedUser == null || loggedUser.uid == null || !snapshot.hasChild(loggedUser.uid)) {
+                    context.startActivity(Intent(context, AccountLogin::class.java))
+                }
                 for (ds in snapshot.children) {
                     val account = ds.getValue(Account::class.java)
 
@@ -46,7 +53,6 @@ class DatabaseManager {
                     }
                 }
                 if (loggedUser == null || loggedUser.uid == null || !snapshot.hasChild(loggedUser.uid)) {
-                    Toast.makeText(context, "You are not logged in, you're going to be redirected.", Toast.LENGTH_SHORT).show()
                     context.startActivity(Intent(context, AccountLogin::class.java))
                 }
                 callback()
@@ -57,13 +63,16 @@ class DatabaseManager {
         dbRefReminders.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 reminderList.clear()
+                if (loggedUser == null || loggedUser.uid == null || !snapshot.hasChild(loggedUser.uid)) {
+                    context.startActivity(Intent(context, AccountLogin::class.java))
+                }
                 for (ds in snapshot.child(loggedUser.uid).children) {
                     reminderList.add(ds.getValue(Reminder::class.java) as Reminder)
                 }
-                callback()
                 if (reminderList.isEmpty() && emptyReminderListText != null) {
                     emptyReminderListText.visibility = View.VISIBLE
                 }
+                callback()
             }
 
             override fun onCancelled(error: DatabaseError) {}
@@ -71,6 +80,9 @@ class DatabaseManager {
         dbRefDevices.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 devicesList.clear()
+                if (loggedUser == null || loggedUser.uid == null || !snapshot.hasChild(loggedUser.uid)) {
+                    context.startActivity(Intent(context, AccountLogin::class.java))
+                }
                 for (ds in snapshot.child(loggedUser.uid).children) {
                     devicesList.add(ds.getValue(Device::class.java) as Device)
                 }
