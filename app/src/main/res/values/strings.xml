@@ -85,5 +85,8 @@
     <string name="add_reminder_title_input_hint">Title</string>
     <string name="add_reminder_confirm">Add</string>
     <string name="add_reminder_devices_popup_button">Devices to notify ►</string>
+    <string name="popup_add_reminders_devices_devices_select_all_cb">Select all</string>
+    <string name="popup_add_reminders_devices_devices_select_nothing_cb">Select nothing</string>
+    <string name="item_popup_add_reminders_device_name">Device name</string>
 
 </resources>
