@@ -39,8 +39,9 @@ class AddReminder : AppCompatActivity() {
 
         val popupDevices = findViewById<Button>(R.id.add_reminder_devices_popup_button)
         popupDevices.setOnClickListener {
-            PopupAddReminderDevices(this).show()
-            TODO("debug le fait que la console dit que il trouve pas de layout manager + pourquoi les éléments de la popup de s'affichent pas !")
+            val popup = PopupAddReminderDevices(this)
+            popup.create()
+            popup.show()
         }
     }
 }

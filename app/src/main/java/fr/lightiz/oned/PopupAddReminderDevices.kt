@@ -6,6 +6,7 @@ import android.view.Window
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import fr.lightiz.oned.add_reminderpage.AddReminderDeviceItemDecoration
@@ -32,28 +33,62 @@ class PopupAddReminderDevices(addReminder: AddReminder): Dialog(addReminder.cont
         selectAll = findViewById(R.id.popup_add_reminders_devices_devices_select_all_cb)
         selectNothing = findViewById(R.id.popup_add_reminders_devices_devices_select_nothing_cb)
 
-        DatabaseManager().updateData({}, FirebaseAuth.getInstance().currentUser, context, TextView(context))
+        DatabaseManager().updateData(
+            {
+                devicesRecyclerView.layoutManager = LinearLayoutManager(context)
+                devicesRecyclerView.adapter = AddReminderDevicesAdapter(devicesList, devicesMap, selectAll, selectNothing)
+                devicesRecyclerView.addItemDecoration(AddReminderDeviceItemDecoration())
+            }, FirebaseAuth.getInstance().currentUser, context, TextView(context)
+        )
         for(device in devicesList){
             devicesMap[device] = true
         }
 
         close.setOnClickListener {
+            hide()
             dismiss()
         }
 
         selectAll.setOnClickListener {
+            if(selectAll.isChecked){
+                selectNothing.performClick()
+                return@setOnClickListener
+            }
+
             for (device in devicesMap.keys){
                 devicesMap[device] = true
             }
-        }
 
-        selectNothing.setOnClickListener {
-            for (device in devicesMap.keys){
-                devicesMap[device] = false
+            var i:Int = 0
+            while(i < devicesRecyclerView.adapter!!.itemCount){
+                val holder: AddReminderDevicesAdapter.ViewHolder = devicesRecyclerView.findViewHolderForAdapterPosition(i) as AddReminderDevicesAdapter.ViewHolder
+                if(!holder.selectedCheckBox.isChecked){
+                    holder.selectedCheckBox.toggle()
+                }
+                i ++
             }
         }
 
-        devicesRecyclerView.adapter = AddReminderDevicesAdapter(devicesList, devicesMap)
-        devicesRecyclerView.addItemDecoration(AddReminderDeviceItemDecoration())
+        //TODO -> regler et corriger tout les détails et réglages true et false avec "!" et sans "!" pour avoir une popup fonctionnelle
+
+        selectNothing.setOnClickListener {
+            if (selectNothing.isChecked){
+                selectAll.performClick()
+                return@setOnClickListener
+            }
+
+            for (device in devicesMap.keys){
+                devicesMap[device] = false
+            }
+
+            var i:Int = 0
+            while(i < devicesRecyclerView.adapter!!.itemCount){
+                val holder: AddReminderDevicesAdapter.ViewHolder = devicesRecyclerView.findViewHolderForAdapterPosition(i) as AddReminderDevicesAdapter.ViewHolder
+                if(holder.selectedCheckBox.isChecked){
+                    holder.selectedCheckBox.toggle()
+                }
+                i ++
+            }
+        }
     }
 }

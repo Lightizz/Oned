@@ -11,11 +11,14 @@ import fr.lightiz.oned.models.Device
 
 class AddReminderDevicesAdapter(
     private val deviceList: List<Device>,
-    private val deviceMap: MutableMap<Device, Boolean>
+    private val deviceMap: MutableMap<Device, Boolean>,
+    private val selectAll: CheckBox,
+    private val selectNothing: CheckBox
 ) : RecyclerView.Adapter<AddReminderDevicesAdapter.ViewHolder>() {
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val deviceName = view.findViewById<TextView>(R.id.item_popup_add_reminders_device_name)
-        val selectedCheckBox = view.findViewById<CheckBox>(R.id.item_popup_add_reminders_device_enabled)
+        val deviceName: TextView = view.findViewById(R.id.item_popup_add_reminders_device_name)
+        val selectedCheckBox: CheckBox = view.findViewById(R.id.item_popup_add_reminders_device_enabled)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,13 +30,30 @@ class AddReminderDevicesAdapter(
         val currentDevice = deviceList[position]
 
         holder.deviceName.text = currentDevice.name
-        holder.selectedCheckBox.isChecked = deviceMap.get(currentDevice) as Boolean
 
+        if(!holder.selectedCheckBox.isChecked){
+            holder.selectedCheckBox.toggle()
+        }
+        for (device in deviceList){
+            deviceMap[device] = true
+        }
         holder.selectedCheckBox.setOnClickListener {
             if(holder.selectedCheckBox.isChecked) {
                 deviceMap[currentDevice] = false
-            }else if(holder.selectedCheckBox.isChecked) {
+                if(selectAll.isChecked){
+                    selectAll.toggle()
+                }
+                if(!selectNothing.isChecked && !deviceMap.containsValue(true)){
+                    selectNothing.toggle()
+                }
+            }else if(!holder.selectedCheckBox.isChecked) {
                 deviceMap[currentDevice] = true
+                if(!selectAll.isChecked && !deviceMap.containsValue(false)){
+                    selectAll.toggle()
+                }
+                if(selectNothing.isChecked){
+                    selectNothing.toggle()
+                }
             }
         }
     }
