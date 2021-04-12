@@ -1,11 +1,14 @@
 package fr.lightiz.oned.add_reminderpage
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import fr.lightiz.oned.MainActivity
 import fr.lightiz.oned.R
 import fr.lightiz.oned.models.Device
 
@@ -13,7 +16,8 @@ class AddReminderDevicesAdapter(
     private val deviceList: List<Device>,
     private val deviceMap: MutableMap<Device, Boolean>,
     private val selectAll: CheckBox,
-    private val selectNothing: CheckBox
+    private val selectNothing: CheckBox,
+    private val context: Context
 ) : RecyclerView.Adapter<AddReminderDevicesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -37,22 +41,31 @@ class AddReminderDevicesAdapter(
         for (device in deviceList){
             deviceMap[device] = true
         }
+        if(!selectAll.isChecked) {
+            selectAll.toggle()
+        }
+        if(selectNothing.isChecked){
+               selectNothing.toggle()
+        }
         holder.selectedCheckBox.setOnClickListener {
-            if(holder.selectedCheckBox.isChecked) {
+            if(deviceMap[currentDevice] == true) {
                 deviceMap[currentDevice] = false
                 if(selectAll.isChecked){
                     selectAll.toggle()
                 }
-                if(!selectNothing.isChecked && !deviceMap.containsValue(true)){
+
+                //TODO Trouver pourquoi la devices map prend 2 fois les vales et donc finir de résoudre le problème
+
+                if(!deviceMap.containsValue(true) && !selectNothing.isChecked){
                     selectNothing.toggle()
                 }
-            }else if(!holder.selectedCheckBox.isChecked) {
+            }else {
                 deviceMap[currentDevice] = true
-                if(!selectAll.isChecked && !deviceMap.containsValue(false)){
-                    selectAll.toggle()
-                }
                 if(selectNothing.isChecked){
                     selectNothing.toggle()
+                }
+                if(!deviceMap.containsValue(false) && !selectAll.isChecked){
+                    selectAll.toggle()
                 }
             }
         }

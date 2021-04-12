@@ -1,5 +1,6 @@
 package fr.lightiz.oned
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.transition.Explode
@@ -108,6 +109,10 @@ class MainActivity : AppCompatActivity() {
                 return 0
             }
         }
+    }
+
+    fun debugTest(context: Context, msg: String){
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
     }
 }
 

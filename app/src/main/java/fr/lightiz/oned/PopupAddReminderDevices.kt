@@ -6,6 +6,7 @@ import android.view.Window
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -36,7 +37,7 @@ class PopupAddReminderDevices(addReminder: AddReminder): Dialog(addReminder.cont
         DatabaseManager().updateData(
             {
                 devicesRecyclerView.layoutManager = LinearLayoutManager(context)
-                devicesRecyclerView.adapter = AddReminderDevicesAdapter(devicesList, devicesMap, selectAll, selectNothing)
+                devicesRecyclerView.adapter = AddReminderDevicesAdapter(devicesList, devicesMap, selectAll, selectNothing, context)
                 devicesRecyclerView.addItemDecoration(AddReminderDeviceItemDecoration())
             }, FirebaseAuth.getInstance().currentUser, context, TextView(context)
         )
@@ -50,45 +51,59 @@ class PopupAddReminderDevices(addReminder: AddReminder): Dialog(addReminder.cont
         }
 
         selectAll.setOnClickListener {
-            if(selectAll.isChecked){
-                selectNothing.performClick()
+            if(selectNothing.isChecked){
+                selectNothing.toggle()
+            }
+            if(!devicesMap.containsValue(false)){
+                selectNothing()
+                selectNothing.toggle()
                 return@setOnClickListener
             }
 
-            for (device in devicesMap.keys){
-                devicesMap[device] = true
-            }
-
-            var i:Int = 0
-            while(i < devicesRecyclerView.adapter!!.itemCount){
-                val holder: AddReminderDevicesAdapter.ViewHolder = devicesRecyclerView.findViewHolderForAdapterPosition(i) as AddReminderDevicesAdapter.ViewHolder
-                if(!holder.selectedCheckBox.isChecked){
-                    holder.selectedCheckBox.toggle()
-                }
-                i ++
-            }
+            selectAll()
         }
 
-        //TODO -> regler et corriger tout les détails et réglages true et false avec "!" et sans "!" pour avoir une popup fonctionnelle
-
         selectNothing.setOnClickListener {
-            if (selectNothing.isChecked){
-                selectAll.performClick()
+            if(selectAll.isChecked){
+                selectAll.toggle()
+            }
+            if(!devicesMap.containsValue(true)){
+                selectAll()
+                selectAll.toggle()
                 return@setOnClickListener
             }
 
-            for (device in devicesMap.keys){
-                devicesMap[device] = false
-            }
+            selectNothing()
+        }
+    }
 
-            var i:Int = 0
-            while(i < devicesRecyclerView.adapter!!.itemCount){
-                val holder: AddReminderDevicesAdapter.ViewHolder = devicesRecyclerView.findViewHolderForAdapterPosition(i) as AddReminderDevicesAdapter.ViewHolder
-                if(holder.selectedCheckBox.isChecked){
-                    holder.selectedCheckBox.toggle()
-                }
-                i ++
+    fun selectAll(){
+        for (device in devicesMap.keys){
+            devicesMap[device] = true
+        }
+
+        var i:Int = 0
+        while(i < devicesRecyclerView.adapter!!.itemCount){
+            val holder: AddReminderDevicesAdapter.ViewHolder = devicesRecyclerView.findViewHolderForAdapterPosition(i) as AddReminderDevicesAdapter.ViewHolder
+            if(!holder.selectedCheckBox.isChecked){
+                holder.selectedCheckBox.toggle()
             }
+            i ++
+        }
+    }
+
+    fun selectNothing(){
+        for (device in devicesMap.keys){
+            devicesMap[device] = false
+        }
+
+        var i:Int = 0
+        while(i < devicesRecyclerView.adapter!!.itemCount){
+            val holder: AddReminderDevicesAdapter.ViewHolder = devicesRecyclerView.findViewHolderForAdapterPosition(i) as AddReminderDevicesAdapter.ViewHolder
+            if(holder.selectedCheckBox.isChecked){
+                holder.selectedCheckBox.toggle()
+            }
+            i ++
         }
     }
 }
