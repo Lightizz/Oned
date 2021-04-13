@@ -16,8 +16,7 @@ class AddReminderDevicesAdapter(
     private val deviceList: List<Device>,
     private val deviceMap: MutableMap<Device, Boolean>,
     private val selectAll: CheckBox,
-    private val selectNothing: CheckBox,
-    private val context: Context
+    private val selectNothing: CheckBox
 ) : RecyclerView.Adapter<AddReminderDevicesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -53,8 +52,6 @@ class AddReminderDevicesAdapter(
                 if(selectAll.isChecked){
                     selectAll.toggle()
                 }
-
-                //TODO Trouver pourquoi la devices map prend 2 fois les vales et donc finir de résoudre le problème
 
                 if(!deviceMap.containsValue(true) && !selectNothing.isChecked){
                     selectNothing.toggle()

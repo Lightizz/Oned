@@ -16,13 +16,13 @@ import fr.lightiz.oned.data.DatabaseManager
 import fr.lightiz.oned.data.DatabaseManager.Singleton.devicesList
 import fr.lightiz.oned.models.Device
 
-class PopupAddReminderDevices(addReminder: AddReminder): Dialog(addReminder.context) {
+class PopupAddReminderDevices(addReminder: AddReminder, devicesMap_: MutableMap<Device, Boolean>): Dialog(addReminder.context) {
     private lateinit var close: ImageView
     private lateinit var devicesRecyclerView: RecyclerView
     private lateinit var selectAll: CheckBox
     private lateinit var selectNothing: CheckBox
 
-    var devicesMap = mutableMapOf<Device, Boolean>()
+    private var devicesMap = devicesMap_
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +37,10 @@ class PopupAddReminderDevices(addReminder: AddReminder): Dialog(addReminder.cont
         DatabaseManager().updateData(
             {
                 devicesRecyclerView.layoutManager = LinearLayoutManager(context)
-                devicesRecyclerView.adapter = AddReminderDevicesAdapter(devicesList, devicesMap, selectAll, selectNothing, context)
+                devicesRecyclerView.adapter = AddReminderDevicesAdapter(devicesList, devicesMap, selectAll, selectNothing)
                 devicesRecyclerView.addItemDecoration(AddReminderDeviceItemDecoration())
             }, FirebaseAuth.getInstance().currentUser, context, TextView(context)
         )
-        for(device in devicesList){
-            devicesMap[device] = true
-        }
 
         close.setOnClickListener {
             hide()
