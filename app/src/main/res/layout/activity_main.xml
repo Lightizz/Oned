@@ -98,4 +98,24 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"/>
 
+    <View
+        android:id="@+id/home_page_more_bg"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/main_page_more_button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/home_page_more_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_more"
+        app:layout_constraintBottom_toBottomOf="@+id/home_page_more_bg"
+        app:layout_constraintEnd_toEndOf="@+id/home_page_more_bg"
+        app:layout_constraintStart_toStartOf="@+id/home_page_more_bg"
+        app:layout_constraintTop_toTopOf="@+id/home_page_more_bg" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

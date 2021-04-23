@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.transition.Explode
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
@@ -85,6 +86,19 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AccountInfo::class.java))
             finish()
             return@setOnClickListener
+        }
+
+        val moreBg = findViewById<View>(R.id.home_page_more_bg)
+        moreBg.setOnClickListener {
+            val creditPop = CreditPopup(this)
+            creditPop.create()
+            creditPop.show()
+        }
+        val moreImage = findViewById<ImageView>(R.id.home_page_more_img)
+        moreImage.setOnClickListener {
+            val creditPop = CreditPopup(this)
+            creditPop.create()
+            creditPop.show()
         }
     }
 

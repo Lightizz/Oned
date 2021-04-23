@@ -11,20 +11,14 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import fr.lightiz.oned.data.DatabaseManager.Singleton.accountList
-import fr.lightiz.oned.data.DatabaseManager.Singleton.dbRefAccounts
 import fr.lightiz.oned.data.DatabaseManager.Singleton.dbRefReminders
-import fr.lightiz.oned.data.DatabaseManager.Singleton.devicesList
 import fr.lightiz.oned.data.DatabaseManager.Singleton.reminderList
 import fr.lightiz.oned.models.Account
 import fr.lightiz.oned.models.Device
 import fr.lightiz.oned.models.Reminder
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 class AddReminder : AppCompatActivity() {
     val context: Context = this
@@ -78,7 +72,7 @@ class AddReminder : AppCompatActivity() {
         val confirmBtn = findViewById<TextView>(R.id.add_reminder_confirm)
         confirmBtn.setOnClickListener {
             val datePicker = findViewById<DatePicker>(R.id.add_reminder_date)
-            val date = Date(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth, timePicker.hour, timePicker.minute)
+            val date = Date(datePicker.year - 1900, datePicker.month, datePicker.dayOfMonth, timePicker.hour - 1, timePicker.minute - 1)
 
             val titleEditText = findViewById<EditText>(R.id.add_reminder_title_input)
 
